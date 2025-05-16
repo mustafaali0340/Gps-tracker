@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Location Tracker</title>
+</head>
+<body>
+  <h1>Loading...</h1>
+  <script>
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        fetch('/location', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          })
+        });
+        document.body.innerHTML = "<h2>Location sent successfully!</h2>";
+      });
+    } else {
+      document.body.innerHTML = "<h2>Geolocation not supported.</h2>";
+    }
+  </script>
+</body>
+</html>
